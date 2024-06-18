@@ -1,19 +1,40 @@
 <template>
   <div class="task-item">
     {{ task }}
+    <div class="task-btns">
+      <TaskDelete :deleteTask="deleteTask" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from "vue";
+import TaskDelete from "./Actions/TaskDelete.vue";
 
 export default defineComponent({
+  components: {
+    TaskDelete,
+  },
   props: {
     task: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+    deleteTask: {
+      type: Function,
+      required: true,
+    },
+  },
+  setup(props) {
+    const dialog = ref(false);
+
+    const deleteTaskHandler = () => {
+      dialog.value = false;
+      props.deleteTask();
+    };
+
+    return { dialog, deleteTaskHandler };
+  },
 });
 </script>
 
@@ -25,5 +46,8 @@ export default defineComponent({
   text-align: left;
   border-radius: 5px;
   min-width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
