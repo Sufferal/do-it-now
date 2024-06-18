@@ -1,1 +1,10 @@
 @import './base.css';
+
+.container {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.highlight-primary {
+  color: var(--primary-color) !important;
+}
