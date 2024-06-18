@@ -1,14 +1,36 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import TaskAdd from "./components/Task/TaskAdd.vue";
+import TaskList from "./components/Task/TaskList.vue";
+import { ref } from "vue";
+import { onMounted } from "vue";
+
+const tasks = ref([]);
+const addTask = (task) => {
+  tasks.value.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks.value));
+};
+
+onMounted(() => {
+  const savedTasks = localStorage.getItem('tasks');
+  if (savedTasks) {
+    tasks.value = JSON.parse(savedTasks);
+  }
+});
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <HelloWorld msg="Hello, World!" />
-    </div>
-  </header>
+  <div class="app-wrapper">
+    <h1 class="app-title">Do it <span class="highlight-primary">Now</span></h1>
+    <TaskAdd @add-task="addTask"/>
+    <TaskList :tasks="tasks"/>
+  </div>
 </template>
 
 <style scoped>
+.app-title {
+  text-align: center;
+  color: var(--secondary-color);
+  margin: 3rem 0;
+  font-size: 2.5rem;
+}
 </style>

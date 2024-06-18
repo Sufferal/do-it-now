@@ -1,6 +1,9 @@
 :root {
   --primary-font: 'Poppins', 'Arial', sans-serif;
   --primary-color: #EAEAEA;
+  --secondary-color: #08D9D6;
+  --secondary-color-dark: #08918e;
+  --error-color: #FF2E63;
   --background-color: #252A34;
 }
 
