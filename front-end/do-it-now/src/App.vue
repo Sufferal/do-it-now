@@ -10,6 +10,11 @@ const addTask = (task) => {
   localStorage.setItem("tasks", JSON.stringify(tasks.value));
 };
 
+const editTask = (index, task) => {
+  tasks.value[index] = task;
+  localStorage.setItem("tasks", JSON.stringify(tasks.value));
+};
+
 const deleteTask = (index) => {
   tasks.value.splice(index, 1);
   localStorage.setItem("tasks", JSON.stringify(tasks.value));
@@ -27,7 +32,7 @@ onMounted(() => {
   <div class="app-wrapper">
     <h1 class="app-title">Do it <span class="highlight-primary">Now</span></h1>
     <TaskAdd @add-task="addTask"/>
-    <TaskList :tasks="tasks" :deleteTask="deleteTask" />
+    <TaskList :tasks="tasks" :editTask="editTask" :deleteTask="deleteTask" />
   </div>
 </template>
 

@@ -2,22 +2,33 @@
   <div class="task-item">
     {{ task }}
     <div class="task-btns">
-      <TaskDelete :deleteTask="deleteTask" />
+      <TaskEdit :task="task" :index="index" :editTask="editTask" />
+      <TaskDelete :index="index" :deleteTask="deleteTask" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import TaskEdit from "./Actions/TaskEdit.vue";
 import TaskDelete from "./Actions/TaskDelete.vue";
 
 export default defineComponent({
   components: {
+    TaskEdit,
     TaskDelete,
   },
   props: {
     task: {
       type: String,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+    editTask: {
+      type: Function,
       required: true,
     },
     deleteTask: {
@@ -49,5 +60,10 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.task-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

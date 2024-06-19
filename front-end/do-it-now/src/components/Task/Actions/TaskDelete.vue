@@ -31,12 +31,16 @@ export default defineComponent({
       type: Function,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   setup(props) {
     const dialog = ref(false);
     const deleteTaskHandler = () => {
       dialog.value = false;
-      props.deleteTask();
+      props.deleteTask(props.index);
     };
     return { dialog, deleteTaskHandler };
   },
@@ -54,14 +58,14 @@ export default defineComponent({
   background-color: var(--error-color);
 }
 .cancel-btn {
-  color: var(--secondary-color);
+  color: var(--secondary-color-dark);
 }
 .delete-btn:deep() .v-btn__content {
   color: var(--primary-color);
   font-weight: bold;
 }
 .cancel-btn:deep() .v-btn__content {
-  color: var(--secondary-color);
+  color: var(--secondary-color-dark);
   font-weight: bold;
 }
 </style>

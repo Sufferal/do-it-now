@@ -5,6 +5,7 @@
       :key="index"
       :index="index"
       :task="task"
+      :editTask="editTask"
       :deleteTask="deleteTask"
     />
   </div>
@@ -21,6 +22,10 @@ export default defineComponent({
   props: {
     tasks: {
       type: Array as () => string[],
+      required: true,
+    },
+    editTask: {
+      type: Function,
       required: true,
     },
     deleteTask: {
