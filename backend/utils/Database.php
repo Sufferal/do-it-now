@@ -17,7 +17,14 @@ class Database
 
   public function get_pdo()
   {
-    return $this->pdo;
+    try 
+    {
+      return $this->pdo;
+    }
+    catch (PDOException $e) 
+    {
+      return ['error' => $e->getMessage()];
+    }
   }
 
   public function create_tasks_table()
