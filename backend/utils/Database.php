@@ -12,6 +12,7 @@ class Database
       PDO::ATTR_EMULATE_PREPARES   => false,
     ];
     $this->pdo = new PDO($dsn, $user, $pass, $opt);
+    $this->create_tasks_table();
   }
 
   public function get_pdo()
@@ -28,9 +29,12 @@ class Database
     )
   ";
 
-    try {
+    try 
+    {
       $this->pdo->exec($sql);
-    } catch (PDOException $e) {
+    } 
+    catch (PDOException $e) 
+    {
       echo $e->getMessage();
     }
   }
