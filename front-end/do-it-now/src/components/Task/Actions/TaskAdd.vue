@@ -70,17 +70,17 @@ export default defineComponent({
 }
 
 .task-add:deep() .v-counter {
-  color: var(--secondary-color-dark) !important;
+  color: var(--secondary-color-dark);
   font-weight: bold;
 }
 
 .task-add:deep() .v-messages__message {
-  color: var(--error-color) !important;
+  color: var(--error-color);
 }
 
 .task-add:deep()
   .v-field--error:not(.v-field--disabled)
   .v-label.v-field-label {
-  color: var(--error-color) !important;
+  color: var(--error-color);
 }
 </style>
