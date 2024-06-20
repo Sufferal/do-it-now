@@ -22,10 +22,10 @@ npm run dev
 
 ## Usage
 ### Add a new task
-![Add a new task](./docs/img/task_add.png)
+<img src="./docs/img/task_add.png" width="500" alt="Add a task">
 
 ### Edit a task
-![Edit a task](./docs/img/task_edit.png)
+<img src="./docs/img/task_edit.png" width="500" alt="Edit a task">
 
 ### Delete a task
-![Delete a task](./docs/img/task_delete.png)
+<img src="./docs/img/task_delete.png" width="500" alt="Delete a task">
