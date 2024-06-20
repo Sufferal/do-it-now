@@ -4,6 +4,12 @@ A task management application that allows users to create, edit, and delete task
 ## Goal 
 The goal of this project is to create a robust and versatile task management application using `Vue.js` and `PHP` with `MySQL` database, to help users manage their tasks efficiently and display them in a visually appealing manner.
 
+## Docs
+For detailed documentation, please refer to the [docs](./docs) directory.
+- [Front-end](./docs/frontend.md)
+- [Back-end](./docs/backend.md)
+- [API](./docs/api.md)
+
 ## Quick Start
 1. Clone the repository
 ```
