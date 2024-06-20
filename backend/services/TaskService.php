@@ -48,7 +48,12 @@ class TaskService
     try 
     {
       $this->taskModel->add_task($task);
-      return ['message' => 'Task added successfully'];
+      $last_inserted_id = $this->taskModel->get_last_inserted_id();
+      return 
+      [
+        'message' => 'Task added successfully',
+        'id'      => $last_inserted_id
+      ];
     } 
     catch (PDOException $e) 
     {

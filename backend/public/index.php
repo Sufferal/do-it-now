@@ -1,4 +1,8 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type");
+
 require_once '../config/config.php';
 require_once '../utils/Database.php';
 require_once '../controllers/TaskController.php';
@@ -20,6 +24,12 @@ if ($request_path === $base_path . "/tasks") {
       $task = $json->task;
       echo $task_controller->add_task($task);
       break;
+    case 'OPTIONS':
+      header("Access-Control-Allow-Origin: *");
+      header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+      header("Access-Control-Allow-Headers: Content-Type");
+      http_response_code(200);
+      break;
     default:
       http_response_code(405);
       echo json_encode(['error' => 'Method not allowed']);
@@ -40,6 +50,12 @@ if (preg_match("#^{$base_path}/tasks/(\d+)$#", $request_path, $matches)) {
       break;
     case 'DELETE':
       echo $task_controller->delete_task($id);
+      break;
+    case 'OPTIONS':
+      header("Access-Control-Allow-Origin: *");
+      header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+      header("Access-Control-Allow-Headers: Content-Type");
+      http_response_code(200);
       break;
     default:
       http_response_code(405);

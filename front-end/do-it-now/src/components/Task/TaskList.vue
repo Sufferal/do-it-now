@@ -3,7 +3,6 @@
     <TaskItem
       v-for="(task, index) in tasks"
       :key="index"
-      :index="index"
       :task="task"
       :editTask="editTask"
       :deleteTask="deleteTask"
@@ -13,6 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Task } from "@/types/Task";
 import TaskItem from "./TaskItem.vue";
 
 export default defineComponent({
@@ -21,7 +21,7 @@ export default defineComponent({
   },
   props: {
     tasks: {
-      type: Array as () => string[],
+      type: Array as () => Array<Task>,
       required: true,
     },
     editTask: {

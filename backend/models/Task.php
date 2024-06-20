@@ -8,6 +8,11 @@ class Task
     $this->pdo = $pdo;
   }
 
+  public function get_last_inserted_id()
+  {
+    return $this->pdo->lastInsertId();
+  }
+
   public function get_all_tasks() 
   {
     try 

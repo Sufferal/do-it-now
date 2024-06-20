@@ -7,23 +7,25 @@ import { onMounted } from "vue";
 const tasks = ref([]);
 const addTask = (task) => {
   tasks.value.push(task);
-  localStorage.setItem("tasks", JSON.stringify(tasks.value));
 };
 
 const editTask = (index, task) => {
-  tasks.value[index] = task;
-  localStorage.setItem("tasks", JSON.stringify(tasks.value));
+  // Get task with index and update it
+  const taskIndex = tasks.value.findIndex((t) => t.id === index);
+  tasks.value[taskIndex].task = task;
 };
 
 const deleteTask = (index) => {
-  tasks.value.splice(index, 1);
-  localStorage.setItem("tasks", JSON.stringify(tasks.value));
+  tasks.value = tasks.value.filter(task => task.id !== index);
 };
 
-onMounted(() => {
-  const savedTasks = localStorage.getItem('tasks');
-  if (savedTasks) {
-    tasks.value = JSON.parse(savedTasks);
+onMounted(async () => {
+  const response = await fetch('http://localhost/do-it-now/backend/public/tasks');
+  if (!response.ok) {
+    console.error('HTTP error', response.status);
+  } else {
+    const data = await response.json();
+    tasks.value = data;
   }
 });
 </script>

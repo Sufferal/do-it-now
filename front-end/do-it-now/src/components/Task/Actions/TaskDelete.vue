@@ -40,7 +40,21 @@ export default defineComponent({
     const dialog = ref(false);
     const deleteTaskHandler = () => {
       dialog.value = false;
-      props.deleteTask(props.index);
+      fetch(`https://localhost/do-it-now/backend/public/tasks/${props.index}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            console.error("Error:", data.error);
+          } else {
+            console.log("Success:", data);
+            props.deleteTask(props.index);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     };
     return { dialog, deleteTaskHandler };
   },

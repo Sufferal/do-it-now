@@ -1,9 +1,9 @@
 <template>
   <div class="task-item">
-    {{ task }}
+    {{ task.task }}
     <div class="task-btns">
-      <TaskEdit :task="task" :index="index" :editTask="editTask" />
-      <TaskDelete :index="index" :deleteTask="deleteTask" />
+      <TaskEdit :task="task" :editTask="editTask" />
+      <TaskDelete :index="task.id" :deleteTask="deleteTask" />
     </div>
   </div>
 </template>
@@ -12,6 +12,7 @@
 import { defineComponent, ref } from "vue";
 import TaskEdit from "./Actions/TaskEdit.vue";
 import TaskDelete from "./Actions/TaskDelete.vue";
+import { Task } from "@/types/Task";
 
 export default defineComponent({
   components: {
@@ -20,11 +21,7 @@ export default defineComponent({
   },
   props: {
     task: {
-      type: String,
-      required: true,
-    },
-    index: {
-      type: Number,
+      type: Object as () => Task,
       required: true,
     },
     editTask: {

@@ -44,9 +44,30 @@ export default defineComponent({
   methods: {
     addTask() {
       if (this.valid && this.task !== "") {
-        this.$emit("add-task", this.task);
-        this.task = "";
-        this.$refs.form.resetValidation();
+        fetch("https://localhost/do-it-now/backend/public/tasks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ task: this.task }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              console.error("Error:", data.error);
+            } else {
+              console.log("Success:", data);
+              this.$emit("add-task", {
+                id: Number(data.id),
+                task: this.task
+              });
+              this.task = "";
+              this.$refs.form.resetValidation();
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     },
   },

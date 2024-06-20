@@ -4,7 +4,7 @@
     <v-card class="edit-card">
       <v-card-title class="headline"
         >Update task:
-        <span class="highlight-task">{{ task }}</span></v-card-title
+        <span class="highlight-task">{{ task.task }}</span></v-card-title
       >
       <v-form v-model="valid" class="task-form">
         <v-text-field
@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+import { Task } from "@/types/Task";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -41,11 +42,7 @@ export default defineComponent({
       required: true,
     },
     task: {
-      type: String,
-      required: true,
-    },
-    index: {
-      type: Number,
+      type: Object as () => Task,
       required: true,
     },
   },
@@ -61,13 +58,39 @@ export default defineComponent({
       ],
     };
   },
+  watch: {
+    task: {
+      immediate: true,
+      handler(newVal) {
+        this.taskUpdate = newVal.task;
+      },
+    },
+  },
   methods: {
     editTaskHandler() {
       if (this.valid) {
-        this.dialog = false;
-        this.editTask(this.index, this.taskUpdate);
-        this.taskUpdate = "";
-        this.$refs.form.resetValidation();
+        fetch(`https://localhost/do-it-now/backend/public/tasks/${this.task.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ task: this.taskUpdate }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              console.error("Error:", data.error);
+            } else {
+              console.log("Success:", data);
+              this.dialog = false;
+              this.editTask(this.task.id, this.taskUpdate);
+              this.taskUpdate = "";
+              this.$refs.form.resetValidation();
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     },
   },
